@@ -1,0 +1,208 @@
+/*
+************************************
+***********SCHOOL2 STYLE************
+************************************
+*/
+
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Helvetica, sans-serif;
+}
+
+/*
+*********** NAV **********
+*/
+
+nav{
+    background: #0082e6;
+    height: 80px;
+    width: 100%;
+}
+
+.logo{
+    color: white;
+    font-size: 35px;
+    line-height: 80px;
+    padding: 0 100px;
+    font-weight: bold;
+}
+
+.logo a {
+    color: white;
+    text-decoration: none;
+}
+
+nav ul{
+    float: right;
+    margin-right: 20px;
+}
+
+nav ul li{
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+}
+
+nav ul li a {
+    color: white;
+    font-size: 17px;
+    padding: 7px 13px;
+    text-transform: uppercase;
+}
+
+nav ul li a:hover{
+    background: #1b9bff;
+    transition: 0.5s;
+    color: white;
+}
+
+.checkbtn{
+    font-size: 30px;
+    color: white;
+    float: right;
+    line-height: 80px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+}
+
+#check{
+    display: none;
+}
+
+/*
+*********** JUMBOTRON **********
+*/
+.jumbotron{
+    background-image: url("../assets/img/ryan-jacobson-cXUOQWdRV4I-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*
+*********** MENSAJE IMG **********
+*/
+
+.motto{
+    padding: 25px;
+    text-align: center;
+    font-size: 80px;
+    width: 80%;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+.author{
+    padding-top: 20px;
+    color: skyblue;
+    font-size: 60px;
+}
+
+/*
+*********** BLOQUES INFORMATIVOS **********
+*/
+.content{
+    text-align: center;
+    font-size: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.content article{
+    width: 100%;
+    padding: 50px 20px 50px 20px;
+}
+
+.art-white{
+    background-color: white;
+}
+
+.art-gray{
+    background-color: rgb(187, 190, 194);
+}
+
+h1{
+    text-align: center;
+    padding: 0 0 50px 0;
+}
+
+.img-responsive{
+    max-width: 200px;
+    height: 200px;
+    display: inline-block;
+    padding: 0 0 50px 0;
+}
+
+
+/*
+*********** FOOTER **********
+*/
+
+footer{
+    background: #0082e6;
+    text-align: center;
+    height: 50px;
+    padding: 10px;
+    color: white;
+}
+
+@media (max-width: 1300px) {
+    .logo{
+        font-size:30px;
+        padding-left: 50px;
+    }
+    .motto{
+        font-size: 30px;
+    }
+    .author{
+        font-size: 25px;
+    }
+    .checkbtn{
+        display: block;
+    }
+    ul{
+        position: absolute;
+        top: 80px;
+        width: 100%;
+        height: 100vh;
+        left: -100%;
+        background: steelblue;
+        text-align: center;
+        transition: all 0.5s;
+    }
+    nav ul{
+        overflow: scroll;
+    }
+    nav ul li{
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+    }
+    nav ul li a{
+        font-size: 20px;
+    }
+    nav ul li a:hover{
+        background: none;
+        color: blue;
+        font-size: bolder;
+    }
+    #check:checked ~ ul{
+        left: 0;
+    }
+
+}
