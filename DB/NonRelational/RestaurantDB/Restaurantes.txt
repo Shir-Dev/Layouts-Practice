@@ -1,0 +1,98 @@
+1.Mostrartodos los documentos en la colección.
+
+db.restaurante.find().pretty()
+
+2.Mostrar los campos restaurant_id, name, borough y cuisine para todos los documentos en la colección.
+
+db.restaurante.find({},{restaurant_id:1, name:1, borough:1, cusine:1}).pretty()
+
+
+3.Mostrarlos campos restaurant_id, name, borough y cuisine, pero excluya el campo _id para todos los documentos en la colección.
+
+db.restaurante.find({},{restaurant_id:1, name:1, borough:1, cusine:1, _id:0}).pretty()
+
+
+4.Mostrarlos campos restaurant_id, name, borough y zip code, pero excluya el campo _id para todos los documentos en la colección.
+
+db.restaurante.find({},{restaurant_id:1, name:1, borough:1, "address.zipcode":1, _id:0}).pretty()
+
+5.Mostrartodo el restaurante que se encuentra en el barrio (borough) Bronx.
+
+db.restaurante.find({"borough": "Bronx"},{restaurant_id:1, name:1, borough:1, _id:0}).pretty()
+
+6.Mostrarlos primeros 5 restaurantes que se encuentran en el barrio Bronx.
+
+db.restaurante.find({"borough": "Bronx"},{restaurant_id:1, name:1, borough:1, _id:0}).limit(5).pretty()
+
+7.Mostrarlos siguientes 2 restaurantes después de omitir los5 primerosque se encuentran en el barrio Bronx..
+
+db.restaurante.find({"borough": "Bronx"},{restaurant_id:1, name:1, borough:1, _id:0}).skip(5).limit(2).pretty()
+
+8.Encontrarlos restaurantes que obtuvieron una puntuación de más de 90.
+
+db.restaurante.find({"grades.score": {$gte: 90}},{restaurant_id:1, name:1, borough:1, "grades":1, _id:0}).pretty()
+
+db.restaurante.find({"grades.score": {$gte: 90}},{restaurant_id:1, name:1, borough:1, "grades.score":1, _id:0}).pretty()
+
+
+9.Encontrarlos restaurantes que obtuvieron una puntuación demás de 80 pero menos de 100.
+
+db.restaurante.find({"grades.score": {$gt: 80,$lt:100}},{restaurant_id:1, name:1, borough:1, "grades":1, _id:0}).pretty()
+
+
+10.Encontrarlos restaurantes que se encuentran con unvalor de latitud menor que -95.754168.
+
+db.restaurante.find({"address.coord.0": {$lt: -95.754168}},{restaurant_id:1, name:1, borough:1, "address.coord":1, _id:0}).pretty()
+
+11.Encontrarlos restaurantes que no preparan ninguna cocina "estadounidense" y su calificaciónesmás de 70 y una latitud menor que -65.754168.
+
+db.restaurante.find({cuisine:{$ne:"American "},"grades.score":{$gt:70},"address.coord.0":{$lt: -65.754168}}).limit(3).pretty()
+
+12.Encontrarlos restaurantes que no preparan ninguna cocina "estadounidense" y obtuvieronuna puntuación de más de 70 y ubicada en la longitud menor de -65.754168.
+
+db.restaurante.find({cuisine:{$ne:"American "},"grades.score":{$gt:70},"address.coord.1":{$lt: -65.754168}}).limit(3).pretty()
+
+
+13.Encontrarlos restaurantesque no preparan ninguna cocina "estadounidense" y que haya obtenido un punto de calificación "A" que no pertenece al distrito de Brooklyn.El documento debe mostrarse de acuerdo con el tipo decocina en orden descendente.
+
+db.restaurante.find({cuisine:{$ne:"American "},"grades.grade":{$eq:"A"},"borough":{$ne: "Brooklyn"}}).sort({cuisine: 1}).limit(3).pretty()
+
+14.Encontrarel ID del restaurante, el nombre, el distrito yel tipo decocina para los restaurantes que contienen 'Wil' como las tres primeras letras de su nombre.
+
+db.restaurante.find({name: /^Wil/},{restaurant_id:1, name:1, borough:1, cuisine:1, _id:0}).pretty()
+
+15.Encontrarel ID del restaurante, el nombre, el distrito yel tipo decocina de los restaurantes que contienen 'ces' como las tres últimas letras de su nombre.
+
+db.restaurante.find({name: /ces$/},{restaurant_id:1, name:1, borough:1, cuisine:1, _id:0}).pretty()
+
+16.Encontrarel ID del restaurante, el nombre, el distrito y el tipo decocina para los restaurantes que contienen 'Reg' como tres letras en algún lugar de su nombre.
+
+db.restaurante.find({name: /Reg/},{restaurant_id:1, name:1, borough:1, cuisine:1, _id:0}).pretty()
+
+17.Encontrarlos restaurantes que pertenecen al Bronx de la ciudad y preparó un plato estadounidense o chino
+
+db.restaurante.find({ borough:"Bronx", $or: [{cuisine: "American " },{ cuisine:"Chinese"}] },{ name:1, cuisine:1, _id:0 }).pretty()
+
+18.Encontrarel ID del restaurante, el nombre, el distrito y el tipo decocina de los restaurantes que pertenecen al condado de Staten Island o Queens o Bronxor Brooklyn.
+
+db.restaurante.find({ $or: [{borough:"Bronx"},{ borough:"Queens"}, {borough:"Brooklyn"}, {borough:"Staten Island"}] },{ restaurant_id:1, name:1, borough:1, cuisine:1, _id:0 }).pretty()
+
+19.Encontrarel ID del restaurante, el nombre, el distrito y el tipo de cocina para los restaurantes que no pertenecen al distrito de Staten Island o Queens o Bronxor Brooklyn
+
+db.restaurante.find({ $or: [{borough:{$ne: "Bronx"}},{ borough:{$ne: "Queens"}}, {borough:{$ne: "Brooklyn"}}, {borough:{$ne: "Staten Island"}}] },{ restaurant_id:1, name:1, borough:1, cuisine:1, _id:0 }).pretty()
+
+20.Encontrarel ID del restaurante, el nombre, el distrito y el tipo de cocinapara los restaurantes que obtuvieron una puntuación que no supera el 10.
+
+db.restaurante.find({ "grades.score": {$lt: 10} },{ restaurant_id:1, name:1, borough:1, cuisine:1, _id:0 }).pretty()
+
+21.Encontrarel ID del restaurante, el nombre, el distrito y el tipo decocina de los restaurantes que prepararon un plato, excepto "Americano" y "Chinees" o el nombre del restaurante comienza con la letra "Wil"
+
+db.restaurante.find({ $and: [{cuisine:{$ne: "American "}},{ cuisine:{$ne: "Chinese"}}, {name: /^Wil/}] },{ restaurant_id:1, name:1, borough:1, cuisine:1, _id:0 }).pretty()
+
+22.Encontrar el ID del restaurante, el nombre y las calificaciones de esos restaurantes que obtuvieron una calificación de "A" y obtuvieron 11 puntos en un ISODate "2014-08-11T00: 00: 00Z" entre muchas de las fechas de laencuesta"grades.date":ISODate("2014-08-11T00:00:00Z")
+
+db.restaurante.find({$and: [{"grades.grade":"A"}, {"grades.score": 11}, {"grades.date": ISODate("2014-08-11T00:00:00Z")}]},{ restaurant_id:1, name:1, grades:1, _id:0 }).pretty()
+
+23.Encontrarel ID del restaurante, el nombre y las calificaciones de los restaurantes en los que el segundo elemento de la matriz de calificaciones contiene una calificación de "A" y una puntuación de 9 en un ISODate "2014-08-11T00: 00: 00Z"
+
+db.restaurante.find({$and: [{"grades.1.grade":"A"}, {"grades.1.score": 9}, {"grades.1.date": ISODate("2014-08-11T00:00:00Z")}]},{ restaurant_id:1, name:1, grades:1, _id:0 }).pretty()

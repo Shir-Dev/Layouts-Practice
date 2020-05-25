@@ -1,0 +1,141 @@
+use MoviesDB
+db.createCollection("movie")
+db.movie.insertMany([
+{
+"title": "Fight Club",
+"writer": "Chuck Palahniuk",
+"year": 1999,
+"actors": ["Brad Pitt",
+"Edward Norton"]
+},
+{
+"title": "Pulp Fiction",
+"writer": "Quentin Tarantino",
+"year": 1994,
+"actors": ["John Travolta",
+"Uma Thurman"]
+},
+{
+"title": "Inglorious Basterds",
+"writer": "Quentin Tarantino",
+"year": 2009,
+"actors": ["Brad Pitt",
+"Diane Kruger",
+"Eli Roth"]
+},
+{
+"title": "The Hobbit: An Unexpected Journey",
+"writer": "J.R.R. Tolkein",
+"year": 2012,
+"franchise": "The Hobbit"
+},
+{
+"title": "The Hobbit: The Desolation of Smaug",
+"writer": "J.R.R. Tolkein",
+"year": 2013,
+"franchise": "The Hobbit"
+},
+{
+"title": "The Hobbit: The Battle of the Five Armies",
+"writer": "J.R.R. Tolkein",
+"year": 2012,
+"franchise": "The Hobbit",
+"synopsis": "Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness."
+},
+{
+"title": "Pee Wee Herman's Big Adventure"
+},
+{
+"title": "Avatar"
+}
+])
+
+
+Realizar las siguientes consultas en la colección movies :
+
+********Consultas / Buscar documentos
+
+1. Obtener todos los documentos
+
+db.movie.find({}, {_id: 0}).pretty()
+
+2. Obtener documentos con writer igual a "Quentin Tarantino"
+
+db.movie.find({"writer": "Quentin Tarantino"}, {_id: 0}).pretty()
+db.movie.find({"writer": "Quentin Tarantino"}, {_id: 0}).count()
+
+3. Obtener documentos con actors que incluyan a "Brad Pitt"
+
+db.movie.find({"actors": {$in: ["Brad Pitt"]}}, {_id: 0}).pretty()
+db.movie.find({"actors": {$in: ["Brad Pitt"]}}, {"title":1,_id: 0}).pretty()
+
+4. Obtener documentos con franchise igual a "The Hobbit"
+
+db.movie.find({"franchise": "The Hobbit"}, {_id: 0}).count()
+db.movie.find({"franchise": "The Hobbit"}, {_id: 0}).pretty()
+db.movie.find({"franchise": "The Hobbit"}, {"title":1, _id: 0}).pretty()
+
+5. Obtener todas las películas de los 90s.
+
+db.movie.find({year: {$gte:1990, $lte:1999}}).pretty()
+db.movie.find({year: {$gte:1990, $lte:1999}}, {"title":1, "year":1, _id: 0}).sort({year: 1}).pretty()
+db.movie.find({ $and: [{ year: { $gte: 1990} }, { year: { $lt: 2000 } } ] }, {_id: 0}).pretty()
+
+6. Obtener las películas estrenadas entre el año 2000 y 2010.
+
+db.movie.find({ $and: [{ year: { $gte: 2000} }, { year: { $lte: 2010 } } ] }, {_id: 0}).pretty()
+db.movie.find({ year: {$gte:1990, $lte:1999} }, {_id: 0}).pretty()
+
+*****Actualizar Documentos
+
+1. Agregar sinopsis a "The Hobbit: An Unexpected Journey" : "A reluctant hobbit, Bilbo
+Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim
+their mountain home - and the gold within it - from the dragon Smaug."
+
+db.movie.updateOne(
+{ "title" : "The Hobbit: An Unexpected Journey" }, { $set: {"sinopsis": "A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."} }, { upsert: true })
+
+2. Agregar sinopsis a "The Hobbit: The Desolation of Smaug" : "The dwarves, along with
+Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their
+homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical
+ring."
+
+db.movie.updateOne(
+{"title": "The Hobbit: The Desolation of Smaug" }, { $set: {"synopsis": "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."} }, { upsert: true })
+
+3. Agregar una actor llamado "Samuel L. Jackson" a la película "Pulp Fiction"
+
+db.movie.updateOne(
+{"title": "Pulp Fiction" }, {$push: {"actors": "Samuel L. Jackson"}})
+
+4. Agregar sinopsis a "Avatar" : "Humans discover a new planet and try to destroy it for money... As always!"
+
+db.movie.updateOne(
+{ "title" : "Avatar" }, { $set: {"synopsis": "Humans discover a new planet and try to destroy it for money... As always!"} }, { upsert: true })
+
+
+****Búsqueda por Texto / Text Search
+
+
+1. Encontrar las películas que en el título contengan la palabra "Hobbit"
+
+db.movie.find ({title: /Hobbit/}, {_id: 0}).pretty()
+db.movie.find ({title: /Hobbit/}, {title: 1, synopsis: 1, _id: 0}).pretty()
+
+2. Encontrar las películas que en la sinopsis contengan la palabra "Gandalf"
+
+db.movie.find ({synopsis: /Gandalf/}, {_id: 0}).pretty()
+
+3. Encontrar las películas que en la sinopsis contengan la palabra "Bilbo" y no la palabra
+"Gandalf"
+
+db.movies.find({$and: [{synopsis: /Bilbo/},{synopsis: {$not:/Gandalf/}}]}, {title: 1, synopsis: 1, _id: 0}).pretty()
+
+
+4. Encontrar las películas que en la sinopsis contengan la palabra "dwarves" ó "hobbit"
+
+db.movies.find({$or: [{synopsis: /dwarves/},{synopsis: /hobbit/}]}, {title: 1, synopsis: 1, _id: 0}).pretty()
+
+5. Encontrar las películas que en la sinopsis contengan la palabra "gold" y "dragon"
+
+db.movies.find({$and: [{synopsis: /gold/},{synopsis: /dragon/}]}, {title: 1, synopsis: 1, _id: 0}).pretty()

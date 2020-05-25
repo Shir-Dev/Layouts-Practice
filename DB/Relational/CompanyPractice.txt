@@ -1,0 +1,74 @@
+MYSQL
+
+>CREATE database Empresa;
+
+>CREATE TABLE fabricantes (
+codigo int(4) auto_increment primary key,
+nombre varchar(100) NOT NULL
+);
+
+>CREATE TABLE articulos (
+codigo int(4) primary key,
+nombre varchar(100),
+precio float(7.2),
+fabricante int(4),
+foreign key (fabricante) references fabricantes (codigo)
+);
+
+INSERT INTO fabricantes (nombre) VALUES ("Samsung");
+INSERT INTO fabricantes (nombre) VALUES ("Dell");
+INSERT INTO fabricantes (nombre) VALUES ("Apple");
+INSERT INTO fabricantes (nombre) VALUES ("Asus");
+
+INSERT INTO articulos (codigo,nombre,precio,fabricante) VALUES (4567,'Laptop i7', 899.99,1);
+INSERT INTO articulos (codigo,nombre,precio,fabricante) VALUES (4986,'Laptop i3', 599.99,1);
+INSERT INTO articulos (codigo,nombre,precio,fabricante) VALUES (9563,'Laptop i5', 699.99,1);
+INSERT INTO articulos (codigo,nombre,precio,fabricante) VALUES (8566,'Laptop i7', 799.99,1);
+
+INSERT INTO articulos (codigo,nombre,precio,fabricante) VALUES (997,'Laptop i5 250Gb SSD', 659.99,2);
+INSERT INTO articulos (codigo,nombre,precio,fabricante) VALUES (1986,'Laptop i3 8Gb RAM', 499.99,2);
+
+INSERT INTO articulos (codigo,nombre,precio,fabricante) VALUES (6848,'Laptop i5 8Gb RAM', 1199.99,3);
+
+INSERT INTO articulos (codigo,nombre,precio,fabricante) VALUES (9933,'Laptop i7 16Gb RAM', 1199.99,3);
+INSERT INTO articulos (codigo,nombre,precio,fabricante) VALUES (6736,'Laptop i3 750Gb SSD', 589.99,3);
+INSERT INTO articulos (codigo,nombre,precio,fabricante) VALUES (9888,'Laptop i5 12Gb RAM', 799.99,3);
+
+1. Obtener un listado completo de artículos, incluyendo por cada artículo los datos del artículo y de su fabricante.
+
+>select articulos.codigo, articulos.nombre, precio, articulos.fabricante as codFabricante, fabricantes.nombre as fabricante from articulos,fabricantes where fabricantes.codigo=articulos.fabricante;
+
+
+2. Obtener un listado de artículos, incluyendo el nombre del artículo, su precio, y el nombre de su fabricante.
+
+>select articulos.nombre, precio, fabricantes.nombre as fabricante from articulos,fabricantes where fabricantes.codigo=articulos.fabricante;
+
+
+3. Obtener el precio medio de los productos de cada fabricante, mostrando solo los có́digos de fabricante.
+
+>select avg(precio) as mediaPrecio,fabricantes.codigo from articulos, fabricantes  where fabricantes.codigo=articulos.fabricante group by fabricantes.codigo;
+
+>select truncate(avg(precio),2) as mediaPrecio,fabricantes.codigo from articulos, fabricantes  where fabricantes.codigo=articulos.fabricante group by fabricantes.co
+digo;
+
+
+4. Obtener el precio medio de los productos de cada fabricante, mostrando el nombre del fabricante.
+
+>select avg(precio) as mediaPrecio,fabricantes.nombre from articulos, fabricantes  where fabricantes.codigo=articulos.fabricante group by fabricantes.nombre;
+
+
+5. Obtener los nombres de los fabricantes que ofrezcan productos cuyo precio medio sea mayor o igual a 150€.
+
+>select truncate(avg(precio),2) as mediaPrecio,fabricantes.nombre from articulos, fabricantes  where fabricantes.codigo=articulos.fabricante group by fabricantes.nombre having avg(precio)>600;
+
+
+6. Obtener el nombre y precio del artí́culo más barato.
+
+>select nombre, precio from articulos where precio=(select min(precio) from articulos);
+
+
+7. Obtener una lista con el nombre y precio de los artı́culos más caros de
+cada proveedor (incluyendo el nombre del proveedor).
+
+>select a.nombre, a.precio, f.nombre from articulos a, fabricantes f where a.fabricante = f.codigo and a.precio=(select max(a.precio) from articulos a where a.fabricante=f.codigo);
+
