@@ -1,0 +1,290 @@
+/*================================================*/
+/*================== GLOBALS =====================*/
+/*================================================*/
+
+section{
+	padding: 70px 0;
+}
+
+.btn-custom{
+	border-radius: 0;
+	background-color: transparent;
+	padding: 15px 40px;
+	transition: all 400ms ease;
+	border-width: 4px;
+	border-color: #33bfb7;
+	text-transform: uppercase;
+}
+
+.btn-custom:hover {
+    color: #fff;
+    background-color: rgba(51, 191, 183, 0.15);
+    border-color: #33bfb7;
+}
+
+.overlay{
+	position: absolute;
+	top: 0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background-color: rgba(0,0,0,0.5);
+}
+
+.header_section{
+	position: absolute;
+	text-align: center;
+	color: whitesmoke;
+	z-index: 3;
+	margin-bottom: 10px;
+}
+
+/*================================================*/
+/*=================== NAVBAR =====================*/
+/*================================================*/
+
+.navbar-custom{
+	background-color: rgba(0,0,0,0.7);
+	border:none;
+	height: 75px;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: whitesmoke;
+	letter-spacing: 1.6px;
+	text-transform: uppercase;
+	padding: 27px 30px;
+	transition: all 400ms ease;
+}
+
+.navbar-inverse .navbar-nav>li> a:hover{
+	color:#33bfb7;
+	background-color: rgba(0,0,0,0.5);
+}
+
+.navbar-brand{
+	padding: 1px;
+}
+
+
+/*================================================*/
+/*=================== HEADER =====================*/
+/*================================================*/
+
+.header-image{
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(../img/yoga-pose.jpg);
+	height: 100vh;
+	position: relative;
+}
+
+.header-inner{
+	position: absolute;
+	top: 50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	text-align: center;
+	color: #fff;
+	z-index: 2;
+}
+
+.header-inner h1{
+	font-size: 60px;
+	margin: 25px 0;
+}
+
+
+/*================================================*/
+/*=================== SECTION2 ===================*/
+/*================================================*/
+
+#section2{
+	position: relative;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(../img/yoga-pose2.jpg);
+	height: 100vh;
+}
+
+.panel-custom{
+	position: absolute;
+	background-color: transparent;
+	transition: all 400ms ease;
+	border-width: 2.5px;
+	border-color: #33bfb7;
+	color: whitesmoke;
+	z-index: 3;
+	box-sizing: border-box;
+}
+
+.panel-heading-custom{
+	border-color: #33bfb7;
+	transition: all 400ms ease;
+}
+
+.panel-heading-custom h3{
+	font-size: 20px;
+	font-weight: bold;
+	color:#33bfb7;
+}
+
+#panel1{
+	top:63px;
+}
+
+#panel2{
+	top: 360px;
+}
+
+#btn2{
+	border-radius: 5px;
+	font-weight: bold;
+	color: #33bfb7;
+	padding: 9px 25px;
+	display: center-block;
+	z-index: 3;
+}
+
+
+/*================================================*/
+/*=================== SECTION3 ===================*/
+/*================================================*/
+
+#section3{
+	position: relative;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(../img/beach3.jpg);
+	height: 100vh;
+}
+
+#panel3{
+	top: 185px;
+}
+
+.img-thumbnail{
+	border-color: white;
+	background-color: whitesmoke;
+}
+
+.img_instructor{
+	position: absolute;
+	z-index: 3;
+	top: 185px;
+}
+
+
+/*================================================*/
+/*=================== SECTION4 ===================*/
+/*================================================*/
+
+#section4{
+	position: relative;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(../img/beach8.jpg);
+	height: 110vh;
+}
+
+.hora li{
+	list-style: none;
+}
+
+.list-group-custom{
+	top:85px;
+	position: absolute;
+	z-index: 3;
+	border: 2.5px solid #33bfb7;
+	border-radius: 4px;
+	width: 250px;
+}
+
+.list-group-custom a{
+	background-color: transparent;
+	color: white;
+}
+
+.list-group-custom a:hover{
+	color:#33bfb7;
+	background-color: rgba(0,0,0,0.5);
+}
+
+#pnl_body{
+	font-size: 12px;
+}
+
+#pnl_horarios{
+	top: 80px;
+	z-index: 3;
+}
+
+#tbl_horarios{
+	z-index: 3;
+	vertical-align: center;
+}
+
+#panel4{
+	top: 290px;
+	width: 250px;
+}
+
+#panel5{
+	top:420px;
+}
+
+
+
+/*================================================*/
+/*=================== SECTION6 ===================*/
+/*================================================*/
+
+#section6{
+	position: relative;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(../img/beach4.jpg);
+	height: 100vh;
+}
+
+#section6 h2{
+	top: 150px;
+	font-size: 40px;
+	font-style: bold;
+
+}
+
+#panel-dir{
+	top: 115px;	
+}
+
+#panel-telf{
+	top: 280px;
+	width: 247px;
+}
+
+#panel-mail{
+	top: 450px;
+	width: 247px;
+
+}
+
+#panel-form{
+	top: 115px;
+	width: 400px;
+}
+
+
+.footer{
+	position: absolute;
+    bottom: 0px;
+    left:10%;
+    color: white;
+    z-index: 3;
+}
